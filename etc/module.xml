@@ -3,12 +3,14 @@
 /**
  * Argentina Regions
  *
+ * @category   Mugar
+ * @package    Mugar_ArgentinaRegions
  * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
- * @author     Damián Culotta (http://www.damianculotta.com.ar/)
+ * @author     Mugar (https://www.mugar.io/)
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Barbanet_ArgentinaRegions" setup_version="1.0.0">
+    <module name="Mugar_ArgentinaRegions" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Directory" />
         </sequence>

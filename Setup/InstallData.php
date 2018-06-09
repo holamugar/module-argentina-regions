@@ -2,11 +2,13 @@
 /**
  * Argentina Regions
  *
+ * @category   Mugar
+ * @package    Mugar_ArgentinaRegions
  * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
- * @author     Damián Culotta (http://www.damianculotta.com.ar/)
+ * @author     Mugar (https://www.mugar.io/)
  */
 
-namespace Barbanet\ArgentinaRegions\Setup;
+namespace Mugar\ArgentinaRegions\Setup;
 
 use Magento\Directory\Helper\Data;
 use Magento\Framework\Setup\InstallDataInterface;
@@ -85,4 +87,5 @@ class InstallData implements InstallDataInterface
             $setup->getConnection()->insert($setup->getTable('directory_country_region_name'), $bind);
         }
     }
+
 }

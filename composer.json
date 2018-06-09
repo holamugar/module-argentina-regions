@@ -1,5 +1,5 @@
 {
-    "name": "barbanet/magento2-argentinaregions",
+    "name": "mugar/module-argentinaregions",
     "description": "Regions of Argentina for Magento2.",
     "require": {
         "php": "~5.5.0|~5.6.0|~7.0.0",
