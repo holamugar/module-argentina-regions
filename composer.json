@@ -2,7 +2,7 @@
     "name": "mugar/module-argentinaregions",
     "description": "Regions of Argentina for Magento2.",
     "require": {
-        "php": "~5.5.0|~5.6.0|~7.0.0",
+        "php": "~7.0|~7.1",
         "magento/module-directory": "100.*"
     },
     "type": "magento2-module",
@@ -15,7 +15,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Barbanet\\ArgentinaRegions\\": ""
+            "Mugar\\ArgentinaRegions\\": ""
         }
     }
 }
