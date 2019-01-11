@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Argentina Regions
  *
@@ -52,30 +53,30 @@ class InstallData implements InstallDataInterface
          * Fill table directory/country_region_name for en_US locale
          */
         $data = [
-            ['AR', 'BA', 'Buenos Aires'],
-            ['AR', 'CABA', 'Ciudad Autónoma de Buenos Aires'],
-            ['AR', 'CT', 'Catamarca'],
-            ['AR', 'CC', 'Chaco'],
-            ['AR', 'CH', 'Chubut'],
-            ['AR', 'CD', 'Córdoba'],
-            ['AR', 'CR', 'Corrientes'],
-            ['AR', 'ER', 'Entre Ríos'],
-            ['AR', 'FO', 'Formosa'],
-            ['AR', 'JY', 'Jujuy'],
-            ['AR', 'LP', 'La Pampa'],
-            ['AR', 'LR', 'La Rioja'],
-            ['AR', 'MZ', 'Mendoza'],
-            ['AR', 'MN', 'Misiones'],
-            ['AR', 'NQ', 'Neuquén'],
-            ['AR', 'RN', 'Río Negro'],
-            ['AR', 'SA', 'Salta'],
-            ['AR', 'SJ', 'San Juan'],
-            ['AR', 'SL', 'San Luis'],
-            ['AR', 'SC', 'Santa Cruz'],
-            ['AR', 'SF', 'Santa Fe'],
-            ['AR', 'SE', 'Santiago del Estero'],
-            ['AR', 'TF', 'Tierra del Fuego, Antártida e Islas del Atlántico Sur'],
-            ['AR', 'TM', 'Tucumán']
+            ['AR', 'AR-B', 'Buenos Aires'],
+            ['AR', 'AR-C', 'Ciudad Autónoma de Buenos Aires'],
+            ['AR', 'AR-K', 'Catamarca'],
+            ['AR', 'AR-H', 'Chaco'],
+            ['AR', 'AR-U', 'Chubut'],
+            ['AR', 'AR-X', 'Córdoba'],
+            ['AR', 'AR-W', 'Corrientes'],
+            ['AR', 'AR-E', 'Entre Ríos'],
+            ['AR', 'AR-P', 'Formosa'],
+            ['AR', 'AR-Y', 'Jujuy'],
+            ['AR', 'AR-L', 'La Pampa'],
+            ['AR', 'AR-F', 'La Rioja'],
+            ['AR', 'AR-M', 'Mendoza'],
+            ['AR', 'AR-N', 'Misiones'],
+            ['AR', 'AR-Q', 'Neuquén'],
+            ['AR', 'AR-R', 'Río Negro'],
+            ['AR', 'AR-A', 'Salta'],
+            ['AR', 'AR-J', 'San Juan'],
+            ['AR', 'AR-D', 'San Luis'],
+            ['AR', 'AR-Z', 'Santa Cruz'],
+            ['AR', 'AR-S', 'Santa Fe'],
+            ['AR', 'AR-G', 'Santiago del Estero'],
+            ['AR', 'AR-V', 'Tierra del Fuego, Antártida e Islas del Atlántico Sur'],
+            ['AR', 'AR-T', 'Tucumán']
         ];
 
         foreach ($data as $row) {
