@@ -1,5 +1,5 @@
 <!---
-    Gracias por tu contribución al Mugar.
+    Gracias por tu contribución al MugAr.
     To help us process this pull request we recommend that you add the following information:
     Para facilitar el proceso de este pull request recomendamos que agregues la siguiente información: 
      - Descripción del pull request,
