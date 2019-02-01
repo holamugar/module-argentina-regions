@@ -21,7 +21,7 @@ bin/magento cache:clean
 ## Uninstall
 
 ```
-bin/magento module:uninstall Barbanet_SampleModule
+bin/magento module:uninstall Mugar_ArgentinaRegions
 ```
 
 If you used Composer for installation Magento will remove the files and database information. 
