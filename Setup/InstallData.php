@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Argentina Regions
  *
@@ -16,7 +15,6 @@ use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
-
 class InstallData implements InstallDataInterface
 {
 
@@ -28,7 +26,7 @@ class InstallData implements InstallDataInterface
     protected $directoryData;
 
     /**
-     * Init
+     * InstallData constructor.
      *
      * @param Data $directoryData
      */
@@ -37,14 +35,11 @@ class InstallData implements InstallDataInterface
         $this->directoryData = $directoryData;
     }
 
-
     /**
-     * Install Data
+     * Installs data.
      *
-     * @param ModuleDataSetupInterface $setup   Module Data Setup
-     * @param ModuleContextInterface   $context Module Context
-     *
-     * @return void
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface $context
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
