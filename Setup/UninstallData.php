@@ -26,6 +26,11 @@ class Uninstall implements UninstallInterface
         $setup->startSetup();
 
         $setup->getConnection()->delete(
+            $setup->getTable('directory_country_region_name'),
+            ['region_id IN (SELECT region_id FROM directory_country_region WHERE country_id = ?)' => 'AR']
+        );
+
+        $setup->getConnection()->delete(
             $setup->getTable('directory_country_region'),
             ['country_id = ?' => 'AR']
         );
