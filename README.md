@@ -7,7 +7,7 @@ Regions/States of Argentina to be used with Magento2.
 Use [composer](https://getcomposer.org/) to install Mugar_ArgentinaRegions.
 
 ```
-composer require mugar/module-argentinaregions
+composer require mugar/module-argentina-regions
 ```
 
 Then you'll need to activate the module.
