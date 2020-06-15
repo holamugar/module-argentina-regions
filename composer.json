@@ -2,11 +2,11 @@
     "name": "mugar/module-argentina-regions",
     "description": "Regions of Argentina for Magento2.",
     "require": {
-        "php": "~5.6.5|7.0.2|7.0.4|~7.0.6|~7.1.0|~7.2.0",
+        "php": "~7.2.0|~7.3.0|~7.4.0",
         "magento/module-directory": "100.*"
     },
     "type": "magento2-module",
-    "version": "1.2.2",
+    "version": "2.0.0",
     "license": [
         "MIT"
     ],
