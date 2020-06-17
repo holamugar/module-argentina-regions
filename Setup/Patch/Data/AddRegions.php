@@ -14,8 +14,9 @@ namespace Mugar\ArgentinaRegions\Setup\Patch\Data;
 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
+use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 
-class AddRegions implements DataPatchInterface
+class AddRegions implements DataPatchInterface, PatchRevertableInterface
 {
     /**
      * ModuleDataSetupInterface
@@ -93,21 +94,27 @@ class AddRegions implements DataPatchInterface
     }
 
     /**
-     * Revert patches
-     * @see https://devdocs.magento.com/guides/v2.3/extension-dev-guide/declarative-schema/data-patches.html#revertingDataPatches
+     * Revert patch
      */
     public function revert()
     {
         $this->moduleDataSetup->getConnection()->startSetup();
 
+        $tableDirectoryCountryRegionName = $this->moduleDataSetup->getTable('directory_country_region_name');
+        $tableDirectoryCountryRegion = $this->moduleDataSetup->getTable('directory_country_region');
+
+        $where = [
+            'region_id IN (SELECT region_id FROM ' . $tableDirectoryCountryRegion . ' WHERE country_id = ?)' => 'AR'
+        ];
         $this->moduleDataSetup->getConnection()->delete(
-            $this->moduleDataSetup->getTable('directory_country_region_name'),
-            ['region_id IN (SELECT region_id FROM directory_country_region WHERE country_id = ?)' => 'AR']
+            $tableDirectoryCountryRegionName,
+            $where
         );
 
+        $where = ['country_id = ?' => 'AR'];
         $this->moduleDataSetup->getConnection()->delete(
-            $this->moduleDataSetup->getTable('directory_country_region'),
-            ['country_id = ?' => 'AR']
+            $tableDirectoryCountryRegion,
+            $where
         );
 
         $this->moduleDataSetup->getConnection()->endSetup();
