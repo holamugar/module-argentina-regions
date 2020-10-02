@@ -44,26 +44,8 @@ class AddRegions implements DataPatchInterface, PatchRevertableInterface
     {
         $this->moduleDataSetup->getConnection()->startSetup();
 
-        $regionCount = $this->moduleDataSetup->getConnection()
-            ->fetchOne(
-                'SELECT COUNT(*) FROM ' . $this->moduleDataSetup->getTable('directory_country_region') . ' WHERE country_id = ?',
-                ['AR']
-            );
-
-        if ($regionCount > 0) {
-            $bind = [
-                'scope' => 'default',
-                'scope_id' => 0,
-                'path' => self::CONFIG_PATH,
-                'value' => '1',
-            ];
-            try {
-                $this->moduleDataSetup->getConnection()->insert(
-                    $this->moduleDataSetup->getTable('core_config_data'),
-                    $bind
-                );
-            } catch (LocalizedException $e) {}
-
+        if ($this->hasRegions()) {
+            $this->setFlag();
             $this->moduleDataSetup->getConnection()->endSetup();
             return;
         }
@@ -129,20 +111,9 @@ class AddRegions implements DataPatchInterface, PatchRevertableInterface
 
         $tableDirectoryCountryRegionName = $this->moduleDataSetup->getTable('directory_country_region_name');
         $tableDirectoryCountryRegion = $this->moduleDataSetup->getTable('directory_country_region');
-        $tableCoreConfig = $this->moduleDataSetup->getTable('core_config_data');
 
-        $configCount = $this->moduleDataSetup->getConnection()
-            ->fetchOne(
-                'SELECT COUNT(*) FROM ' . $tableCoreConfig . ' WHERE path = ?',
-                [self::CONFIG_PATH]
-            );
-
-        if ($configCount > 0) {
-            $where = ['path = ?' => self::CONFIG_PATH];
-            $this->moduleDataSetup->getConnection()->delete(
-                $tableCoreConfig,
-                $where
-            );
+        if (!$this->isInstalled()) {
+            $this->removeFlag();
             $this->moduleDataSetup->getConnection()->endSetup();
             return;
         }
@@ -178,5 +149,56 @@ class AddRegions implements DataPatchInterface, PatchRevertableInterface
     public function getAliases()
     {
         return [];
+    }
+
+    private function hasRegions()
+    {
+        $regionCount = $this->moduleDataSetup->getConnection()
+            ->fetchOne(
+                'SELECT COUNT(*) FROM ' . $this->moduleDataSetup->getTable('directory_country_region') . ' WHERE country_id = ?',
+                ['AR']
+            );
+
+        return $regionCount > 0;
+    }
+
+    private function setFlag()
+    {
+        $bind = [
+            'scope' => 'default',
+            'scope_id' => 0,
+            'path' => self::CONFIG_PATH,
+            'value' => '1',
+        ];
+        try {
+            $this->moduleDataSetup->getConnection()->insert(
+                $this->moduleDataSetup->getTable('core_config_data'),
+                $bind
+            );
+        } catch (LocalizedException $e) {}
+    }
+
+    private function isInstalled()
+    {
+        $tableCoreConfig = $this->moduleDataSetup->getTable('core_config_data');
+
+        $configCount = $this->moduleDataSetup->getConnection()
+            ->fetchOne(
+                'SELECT COUNT(*) FROM ' . $tableCoreConfig . ' WHERE path = ?',
+                [self::CONFIG_PATH]
+            );
+
+        return $configCount > 0;
+    }
+
+    private function removeFlag()
+    {
+        $tableCoreConfig = $this->moduleDataSetup->getTable('core_config_data');
+
+        $where = ['path = ?' => self::CONFIG_PATH];
+        $this->moduleDataSetup->getConnection()->delete(
+            $tableCoreConfig,
+            $where
+        );
     }
 }
