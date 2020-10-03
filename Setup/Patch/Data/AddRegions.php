@@ -12,12 +12,15 @@ declare(strict_types=1);
 
 namespace Mugar\ArgentinaRegions\Setup\Patch\Data;
 
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 
 class AddRegions implements DataPatchInterface, PatchRevertableInterface
 {
+    const CONFIG_PATH = 'mugar/argentina-regions/no_installed';
+
     /**
      * ModuleDataSetupInterface
      *
@@ -40,6 +43,12 @@ class AddRegions implements DataPatchInterface, PatchRevertableInterface
     public function apply()
     {
         $this->moduleDataSetup->getConnection()->startSetup();
+
+        if ($this->hasRegions()) {
+            $this->setFlag();
+            $this->moduleDataSetup->getConnection()->endSetup();
+            return;
+        }
 
         /**
          * Fill table directory/country_region
@@ -103,6 +112,12 @@ class AddRegions implements DataPatchInterface, PatchRevertableInterface
         $tableDirectoryCountryRegionName = $this->moduleDataSetup->getTable('directory_country_region_name');
         $tableDirectoryCountryRegion = $this->moduleDataSetup->getTable('directory_country_region');
 
+        if (!$this->isInstalled()) {
+            $this->removeFlag();
+            $this->moduleDataSetup->getConnection()->endSetup();
+            return;
+        }
+
         $where = [
             'region_id IN (SELECT region_id FROM ' . $tableDirectoryCountryRegion . ' WHERE country_id = ?)' => 'AR'
         ];
@@ -134,5 +149,56 @@ class AddRegions implements DataPatchInterface, PatchRevertableInterface
     public function getAliases()
     {
         return [];
+    }
+
+    private function hasRegions()
+    {
+        $regionCount = $this->moduleDataSetup->getConnection()
+            ->fetchOne(
+                'SELECT COUNT(*) FROM ' . $this->moduleDataSetup->getTable('directory_country_region') . ' WHERE country_id = ?',
+                ['AR']
+            );
+
+        return $regionCount > 0;
+    }
+
+    private function setFlag()
+    {
+        $bind = [
+            'scope' => 'default',
+            'scope_id' => 0,
+            'path' => self::CONFIG_PATH,
+            'value' => '1',
+        ];
+        try {
+            $this->moduleDataSetup->getConnection()->insert(
+                $this->moduleDataSetup->getTable('core_config_data'),
+                $bind
+            );
+        } catch (LocalizedException $e) {}
+    }
+
+    private function isInstalled()
+    {
+        $tableCoreConfig = $this->moduleDataSetup->getTable('core_config_data');
+
+        $configCount = $this->moduleDataSetup->getConnection()
+            ->fetchOne(
+                'SELECT COUNT(*) FROM ' . $tableCoreConfig . ' WHERE path = ?',
+                [self::CONFIG_PATH]
+            );
+
+        return $configCount > 0;
+    }
+
+    private function removeFlag()
+    {
+        $tableCoreConfig = $this->moduleDataSetup->getTable('core_config_data');
+
+        $where = ['path = ?' => self::CONFIG_PATH];
+        $this->moduleDataSetup->getConnection()->delete(
+            $tableCoreConfig,
+            $where
+        );
     }
 }
