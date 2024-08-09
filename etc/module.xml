@@ -3,13 +3,12 @@
 /**
  * Argentina Regions
  *
- * @category   Mugar
- * @package    Mugar_ArgentinaRegions
  * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
  * @author     Mugar (https://www.mugar.io/)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="Mugar_ArgentinaRegions">
         <sequence>
             <module name="Magento_Directory" />
